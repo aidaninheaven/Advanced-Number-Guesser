@@ -1,0 +1,61 @@
+import random
+
+#-----------------------------------------------------------------------------
+
+class User:
+    def __init__(self, name, score=0):
+        self.name = name
+        self.score = score
+
+    def assignScore(self, score):
+        self.score = score
+
+    def displayProperties(self):
+        print("Properties of the user:")
+        print("Name:", self.name)
+        print("Score:", self.score)
+
+#-----------------------------------------------------------------------------
+
+class Game:
+    def __init__(self):
+        self.number = None
+
+    def randomNumber(self):
+        self.number = random.randint(1, 100)
+
+    def displayAnswer(self):
+        print("The correct number is:", self.number)
+
+#-----------------------------------------------------------------------------
+
+class Guess:
+    def __init__(self):
+        self.guess = None
+
+    def playerGuess(self):
+        self.guess = int(input("Guess a number between 1 and 100: "))
+        
+#-----------------------------------------------------------------------------
+
+
+print("TEST: INPUT NAME:")
+nameInput = input()
+
+user1 = User(nameInput, 0)
+user1.assignScore(4000)
+
+user1.displayProperties()
+
+game1 = Game()
+game1.randomNumber()  
+
+
+guess1 = Guess()
+guess1.playerGuess()
+
+
+if guess1.guess == game1.number:
+    print("Congratulations! You guessed the correct number!")
+else:
+    print(f"Sorry, the correct number was {game1.number}. Better luck next time!")
