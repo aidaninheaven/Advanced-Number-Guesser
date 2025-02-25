@@ -18,10 +18,25 @@ class User:
 #-----------------------------------------------------------------------------
 
 
-def game():
+def randNum():
     correctAnswer = random.randint(1,100)
     print(correctAnswer)
 
-game()
 
+def titleCard():
+    pass
+
+
+def userStore():
+    print("Please input a username.")
+    nameInput = input()
+
+    user1 = User(nameInput, 0)
+    user1.displayProperties()
+
+def game():
+    pass
+
+randNum()
+userStore()
 
