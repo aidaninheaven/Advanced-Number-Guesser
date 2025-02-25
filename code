@@ -8,8 +8,10 @@ class User:
     def assignScore(self, score):
         self.score = score
 
-    def displayProperties(self):
-        return f"Username: {self.name}\nScore: {self.score}\n"
+    def display_properties(self):
+        print("Properties of the User:")
+        print("Name:", self.name)
+        print("Score:", self.score)
 
 def game(): 
 
