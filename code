@@ -8,7 +8,7 @@ class User:
     def assignScore(self, score):
         self.score = score
 
-    def display_properties(self):
+    def displayProperties(self):
         print("Properties of the User:")
         print("Name:", self.name)
         print("Score:", self.score)
