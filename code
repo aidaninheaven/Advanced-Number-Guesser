@@ -18,7 +18,7 @@ def game():
     print("Please input a username.")
 
     nameInput = input()
-    user1 = User(nameInput, 0)
+    user = User(nameInput, 0)
     
     print("Username successfully stored.")
 
@@ -52,11 +52,11 @@ def game():
 
 
                 finalScore = guessCounter * 100
-                user1.assignScore(finalScore)
+                user.assignScore(finalScore)
 
 
                 f = open("scoreboard.txt", "w") 
-                f.write(user1.displayProperties())
+                f.write(user.displayProperties())
 
                 print("Your score has been saved to 'scoreboard.txt'.")
 
