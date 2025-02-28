@@ -59,7 +59,6 @@ def game():
 
                 sortScores()
 
-                # Ask if the user wants to play again
                 gameInput = input("Would you like to play again? (Y/N): ").strip().lower()
                 if gameInput == "y":
                     break  
