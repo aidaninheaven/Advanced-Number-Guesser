@@ -9,14 +9,10 @@ class User:
         self.score = score
 
     def displayProperties(self):
-        print("Properties of the User:")
-        print("Name:", self.name)
-        print("Score:", self.score)
+        return f"Name: {self.name}, Score: {self.score}\n"
 
 def game(): 
-
     print("Please input a username.")
-
     nameInput = input()
     user = User(nameInput, 0)
     
@@ -48,25 +44,48 @@ def game():
             elif userGuess < correctAnswer:
                 print("Guess is too low!")
             else:
-                print(f"Congratulations! You guessed it in {guessCounter} attempts. ")
-
+                print(f"Congratulations! You guessed it in {guessCounter} attempts.")
 
                 finalScore = guessCounter * 100
                 user.assignScore(finalScore)
 
 
-                f = open("scoreboard.txt", "w") 
-                f.write(user.displayProperties())
+                f = open("scoreboard.txt", "a")  
+                f.write(user.displayProperties())  
+                f.close()  
 
                 print("Your score has been saved to 'scoreboard.txt'.")
 
 
-                gameInput = input("Would you like to play again? (Y/N): ").strip().lower()
+                sortScores()
 
+                # Ask if the user wants to play again
+                gameInput = input("Would you like to play again? (Y/N): ").strip().lower()
                 if gameInput == "y":
                     break  
                 elif gameInput == "n":
                     print("Thanks for playing! Goodbye.")
                     return  
 
-game()
+def sortScores():
+
+    f = open("scoreboard.txt", "r")  
+    lines = f.readlines()  
+    f.close()  
+
+
+    users = []
+    for line in lines:
+        parts = line.strip().split(", ")
+        name = parts[0].split(": ")[1]
+        score = int(parts[1].split(": ")[1])
+        users.append((name, score))
+
+   
+    users.sort(key=lambda x: x[1])
+
+
+    f = open("scoreboard.txt", "w")  
+    for user in users:
+        f.write(f"Name: {user[0]}, Score: {user[1]}\n")
+    f.close()
