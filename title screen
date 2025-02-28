@@ -1,6 +1,6 @@
 def titleScreen():
     print("===========================")
-    print("    NUMBER GUESSER 3000    ")
+    print("|    NUMBER GUESSER 3000   |")
     print("===========================")
     print("1. How to play")
     print("2. Credits")
