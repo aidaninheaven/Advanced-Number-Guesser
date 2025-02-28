@@ -56,7 +56,6 @@ def game():
 
                 print("Your score has been saved to 'scoreboard.txt'.")
 
-
                 sortScores()
 
                 gameInput = input("Would you like to play again? (Y/N): ").strip().lower()
