@@ -1,5 +1,8 @@
 import random
+import os
 
+
+#class for user properties
 class User:
     def __init__(self, name, score):
         self.name = name
@@ -12,6 +15,7 @@ class User:
         return f"Name: {self.name}, Score: {self.score}\n"
 
 def game(): 
+    #username input
     print("Please input a username.")
     nameInput = input()
     user = User(nameInput, 0)
@@ -24,6 +28,7 @@ def game():
 
         print("\nNew game started! Guess the number! It's between 1 and 100.")
 
+        #guess input and conditionals
         while True:
             userGuess = input("Enter your guess: ")
 
@@ -39,6 +44,7 @@ def game():
 
             guessCounter += 1
 
+        #guessing logic
             if userGuess > correctAnswer:
                 print("Guess is too high!")
             elif userGuess < correctAnswer:
@@ -47,11 +53,11 @@ def game():
                 print(f"Congratulations! You guessed it in {guessCounter} attempts.")
 
                 finalScore = guessCounter * 100
-                user.assignScore(finalScore)
+                user.assignScore(finalScore) #logic for deciding and assigning score
 
 
                 f = open("scoreboard.txt", "a")  
-                f.write(user.displayProperties())  
+                f.write(user.displayProperties())  #write the user's properties to the file
                 f.close()  
 
                 print("Your score has been saved to 'scoreboard.txt'.")
@@ -65,27 +71,32 @@ def game():
                     print("Thanks for playing! Goodbye.")
                     return  
 
+
 def sortScores():
+    if not os.path.exists("scoreboard.txt"):  #if the file doesn't exist, it will create it
+        open("scoreboard.txt", "w").close() 
+        return  
 
-    f = open("scoreboard.txt", "r")  
-    lines = f.readlines()  
-    f.close()  
-
+    with open("scoreboard.txt", "r") as f: #open the file in read mode, and store the lines in a list
+        lines = f.readlines()
 
     users = []
     for line in lines:
+
         parts = line.strip().split(", ")
+        if len(parts) == 2 and "Name: " in parts[0] and "Score: " in parts[1]:  #if the line is in the correct format, it will split the line into two parts
 
-        name = parts[0].split(": ")[1]
-        score = int(parts[1].split(": ")[1])
+            name = parts[0].split(": ")[1] #split the first part of the line into two parts, and store the second part in the name variable
+            userscore = parts[1].split(": ")[1] #split the second part of the line into two parts, and store the second part in the userscore variable
 
-        users.append((name, score))
+            if userscore.isdigit():  
+                users.append((name, int(userscore))) 
 
-   
-    users.sort(key=lambda x: x[1])
+    users.sort(key=lambda x: x[1])  #sort the users list by the second element of each tuple
+
+    with open("scoreboard.txt", "w") as f:
+        for user in users:
+            f.write(f"Name: {user[0]}, Score: {user[1]}\n") #write the sorted list to the file
 
 
-    f = open("scoreboard.txt", "w")  
-    for user in users:
-        f.write(f"Name: {user[0]}, Score: {user[1]}\n")
-    f.close()
+game()
